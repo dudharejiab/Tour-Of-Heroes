@@ -1,0 +1,32 @@
+.badge{
+    background: rgb(59, 158, 165);
+    margin-right: 10px;
+    margin-bottom: 3px;
+    color: aliceblue;
+    border-radius: 3px;
+    border: 0px;
+    padding: 2px;
+}
+.name{
+    background: rgb(167, 226, 230);
+}
+.selected{
+    position: static;
+    width: 200px;
+    background: rgb(133, 161, 172);
+    color: antiquewhite;
+    border-radius: 3px;
+    padding: 1px;
+}
+#detail{
+    margin: 5px;
+    padding: 2px;
+    position: relative;
+}
+.hero_div{
+    float: left;
+    margin-bottom: 3px;
+    margin: 3%;
+    display: inline-block;
+}
+
