@@ -1,9 +1,23 @@
-<div >
+<div>
   <h1>
-   Welcome to {{ title }}
+    Welcome to {{ title }}
   </h1>
 </div>
 
-<app-heroes></app-heroes>
+<nav>
+  <ul>
+    <li class="navBar">
+      <a class="navBar" routerLink='/dashboard'> Dashboard</a>
+
+    </li>
+    <li class="navBar" >
+      <a  class="navBar" routerLink='/heroes'> Heroes</a>
+    </li>
+  </ul>
+
+</nav>
+
+<!-- <app-heroes></app-heroes> -->
+<router-outlet></router-outlet>
 
 <app-messages></app-messages>

@@ -1,33 +1,70 @@
-/* You can add global styles to this file, and also import other style files */
+You can add global styles to this file, and also import other style files
 /* Application-wide Styles */
 
 /* everywhere else */
 * {
-  font-family:  'Segoe MDL2 Assets';
+  font-family: "Segoe MDL2 Assets";
 }
+.navBar {
+  display: inline-block;
+  list-style-type: none;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 0 0.5em 0.4em;
+}
+/* Master Styles */
 h1 {
-    color: #369;
-    font-size: 250%;
-  }
-  h2, h3 {
-    color: #444;
-    font-weight: lighter;
-  }
-  body {
-    margin: 2em;
-    font-size: 1.3em;
-  }
-  body, input[text], button {
-    color: #888;
-    font-family: Cambria, Georgia;
-  }
-  
+  color: #369;
+  font-size: 250%;
+}
+h2,h3 {
+  color: #444;
+  font-weight: lighter;
+}
+body {
+  margin: 2em;
+}
+a {
+  cursor: pointer;
+}
+button {
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}
 
-  .heroes{
-    color: rgb(90, 131, 172);
-  }
-
-  li{
-    list-style-type: none;
-  }
-  
+/* Navigation link styles */
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+nav a:visited,a:link {
+  color: #607d8b;
+}
+nav a:hover {
+  color: #039be5;
+  background-color: #cfd8dc;
+}
+nav a.active {
+  color: #039be5;
+}
+*:focus {
+  outline: none;
+}
