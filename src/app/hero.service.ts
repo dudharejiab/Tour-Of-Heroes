@@ -1,113 +1,4 @@
-// import { Injectable } from "@angular/core";
-// import { Hero } from "./hero";
-// import { Observable, of } from "rxjs";
-// import { MessageService } from "./message.service";
-// import { HttpClient, HttpHeaders } from "@angular/common/http";
-// import { catchError, map, tap } from "rxjs/operators";
-// const httpOptions = {
-//   headers: new HttpHeaders({ "Content-Type": "application/json" })
-// };
-
-// @Injectable({
-//   providedIn: "root"
-// })
-// export class HeroService {
-//   private heroesUrl = "api/heroes";
-
-//   constructor(
-//     private http: HttpClient,
-//     private messageService: MessageService
-//   ) {}
-
-//   private log(message: string) {
-//     this.messageService.add(`HeroService: ${message}`);
-//   }
-
-//   /* Get Heroes from server */
-//   getHeroes(): Observable<Hero[]> {
-//     this.messageService.add("HeroService: Fetched Heroes");
-//     return this.http.get<Hero[]>(this.heroesUrl).pipe(
-//       tap(heroes => this.log("fetched Heroes")),
-//       catchError(this.handleError("getHeroes", []))
-//     );
-//   }
-//   /*Handle errors*/
-//   private handleError<T> (operation = "operation", result?: T) {
-//     return (error: any): Observable<T> => {
-//       //send the error to remote logging infrastructure
-//       console.error(error); //instead: log to conosle
-//       this.log(`${operation} failed: ${error.message}`); //
-//       return of(result as T); //Let the app keep running by returning an empty result.
-//     };
-//   }
-//   getHeroNo404<Data>(id: number): Observable<Hero> {
-//     const url = ` ${this.heroesUrl}/?id=${id} `;
-//     return this.http.get<Hero[]>(url).pipe(
-//       map(heroes => heroes[0]), //returns a {0|1} element array
-//       tap(h => {
-//           const outcome = h ? `fetched` : `did not found`;
-//           this.log(`${outcome} hero id=${id} `);
-//       }),
-//       catchError (this.handleError<Hero>(`getHero id=${id} `))
-//     );
-//   }
-//   /*Get hero by id. 404 if not found */
-//   getHero(id: number): Observable<Hero> {
-//     const url = `${this.heroesUrl}/${id}`;
-//     return this.http.get<Hero>(url).pipe(
-//       tap(_ => this.log(`Fetched Hero ID = ${id} `)),
-//       catchError(this.handleError<Hero>(`Get Hero Id = ${id} `))
-//     );
-//     // this.messageService.add(` HeroService: fetched hero id=${id} `);
-//     // return of(HEROES.find(hero => hero.id === id));
-//   }
-//   /* Update hero to server */
-//   updateHero(hero: Hero): Observable<any> {
-//     return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
-//       tap(_ => this.log(`Updated Hero ID = ${hero.id} `)),
-//       catchError(this.handleError<any>("Upadted Hero"))
-//     );
-//   }
-
-//   /* Add new hero to server */
-//   addHero(hero: Hero): Observable<Hero> {
-//     return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
-//       tap((hero: Hero) => this.log(`added hero w/ id=${hero.id} `)),
-//       catchError(this.handleError<Hero>("addHero"))
-//     );
-//   }
-
-//   /*Delete hero from server */
-//   deleteHero(hero: Hero | number): Observable<Hero> {
-//     const id = typeof hero === "number" ? hero : hero.id;
-//     const url = ` ${this.heroesUrl}/${id} `;
-//     return this.http.delete<Hero>(url, httpOptions).pipe(
-//       tap(_ => this.log(` Hero deleted, id = ${id} `)),
-//       catchError(this.handleError<Hero>("deleted Hero"))
-//     );
-//   }
-
-//   /*Get heroes whose name matches the search */
-//   searchHeroes(term: string): Observable<Hero[]> {
-//     if (!term.trim()) {
-//       console.log("Sorry! no heroes found...");
-//       return of([]);
-//     }
-//     return this.http.get<Hero[]>(` ${this.heroesUrl}/?name=${term} `).pipe(
-//       tap(_ => this.log(`Matching to ${term} found`)),
-//       catchError(this.handleError<Hero[]>("searchHeroes", []))
-//     );
-//   }
-// }
-
-
-
-
-
-
-
-
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
@@ -115,6 +6,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Hero } from './hero';
 import { MessageService } from './message.service';
+import {APP_BASE_HREF} from '@angular/common';
+import { Optional } from '@angular/core';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -127,7 +20,10 @@ export class HeroService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    @Optional() @Inject(APP_BASE_HREF) origin: string) { 
+        this.heroesUrl = `${origin}${this.heroesUrl}`;
+    }
 
   /** GET heroes from the server */
   getHeroes (): Observable<Hero[]> {

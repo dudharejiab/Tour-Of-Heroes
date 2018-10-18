@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+
 
 
 @NgModule({
@@ -24,7 +27,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroSearchComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'tour-of-heroes' }),
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
@@ -36,4 +39,12 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  constructor( @Inject (PLATFORM_ID) private platformId: Object, 
+               @Inject (APP_ID) private appId: string ){
+                const platform = isPlatformBrowser(platformId) ? 'in the browser' : 'on the server';
+              console.log(`Running ${platform} with appId=${appId}`);
+  }
+
+}
